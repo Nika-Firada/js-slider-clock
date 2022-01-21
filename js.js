@@ -6,14 +6,16 @@ function myClock() {
   }
   myClock();
 
-//////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////
+
 
 const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
 const slides = document.querySelectorAll('.slide');
 const dots = document.querySelectorAll('.dot');
-
 let index = 0;
+let timeId = null;
 
 const activeSlide = n =>{
   for(slide of slides){
@@ -62,12 +64,30 @@ dots.forEach((item, indexDot) => {
   })
 
 })
-setInterval(nextSlide, 2000);
+
+function setInt(){
+  timeId = setInterval(nextSlide, 1500);
+  console.log('autoslider interval was seted');
+}
+setInt();
+
+function removeInt(){
+  if(timeId){
+    clearInterval(timeId);
+    timeId = null;
+  }
+  console.log('autoslider interval was removed');
+}
+const slideWrapper = document.querySelector('.slider-wrapper');
+slideWrapper.addEventListener('mouseenter', removeInt);
+slideWrapper.addEventListener('mouseleave', setInt);
 
 
 
 
-////////////////
+
+/////////////////////////////////////////////////////////////////////
+
 let k = 4;
 const students = [-1, -3, 0, 4, 1];
 function angryProfessor(k, student) {
